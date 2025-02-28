@@ -1,0 +1,25 @@
+Steps:
+    1) import xlsx
+    -pandas
+
+    2) clean/standardize data
+    -while loop:
+        -check next row(s) until data is found again
+        -concat secondary row data together
+            -model: split("/")
+            -OS: "iOS " + {version} split("/")
+            -date: extract date split("/")
+        -append concat'ed data to temp lists
+        -after all columns, append temp list to 2d list
+        -clear temp list
+    -
+
+    3) separate data as lists
+    4) process lists into models
+    5) create secondary models with best fit line
+
+
+
+    "iOS 14.1 (12 Pro) "
+    " iOS 14.2 (12 Pro Max)"
+
