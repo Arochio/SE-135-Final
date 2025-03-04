@@ -21,3 +21,20 @@ for j in mon:
 print(index2)
 print(index)
 print(test[index2:index])
+
+
+
+while True:
+    for i in range(0, len(col1) - 1):
+        if startIndex == -1 and col1[i] != "":
+            startIndex = i
+            print(i)
+        print(col1[i])
+        if col1[i] == "" and startIndex != -1:
+            endIndex = i
+            print(i)
+            break
+    for i in range(startIndex, endIndex):
+        tempStr += str(col1[i]) + " "
+    print(tempStr)
+    break
