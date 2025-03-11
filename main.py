@@ -8,6 +8,7 @@ import matplotlib.dates as mdates
 import matplotlib.ticker as ticker
 import numpy
 import datetime
+from statistics import mean
 
 #Constants
 MODEL_INDEX = 0
@@ -112,6 +113,25 @@ for i, data in enumerate(date):
     format = '%B %d %Y'
     date[i] = datetime.datetime.strptime(date[i], format)
 
+allXvalues =[]
+allYvalues = []
+for i in range(0,len(median)):
+    allYvalues.append(int(min[i]))
+    allYvalues.append(int(max[i]))
+    allYvalues.append(int(median[i]))
+    allXvalues.append(int(date[i].timestamp())/86400)
+    allXvalues.append(int(date[i].timestamp())/86400)
+    allXvalues.append(int(date[i].timestamp())/86400)
+
+npX = numpy.array(allXvalues)
+npY = numpy.array(allYvalues)
+
+bfSlope = (((mean(npX)*mean(npY)) - mean(npX*npY)) / ((mean(npX)*mean(npX)) - mean(npX*npX)))
+bfIntercept = mean(npY) - bfSlope*mean(npX)
+regression_line = [(bfSlope*x)+bfIntercept for x in npX]
+
+
+
 fig, ax = plt.subplots(figsize=(10,6))
 
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%Y'))
@@ -120,6 +140,7 @@ plt.gca().xaxis.set_major_locator(mdates.YearLocator())
 plt.scatter(date, median, label='Median')
 plt.scatter(date, min, c="#FF0000", label='Min')
 plt.scatter(date, max, c="#00FF00", label='Max')
+plt.plot(npX, regression_line)
 
 formatter = ticker.StrMethodFormatter('${x:,.2f}')
 ax.yaxis.set_major_formatter(formatter)
