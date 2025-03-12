@@ -46,6 +46,23 @@ def scatterPlot(data, _label):
     plt.gcf().autofmt_xdate()
     plt.savefig(_label + ".png")
 
+def predictive():
+    userInput = input("Enter the number of years to predict price past 2020 (0 to exit): ")
+    try:
+        preYears = int(userInput)
+    except:
+        preYears = 0
+        print("\nInvalid entry: Please use an integer, or enter '0'to exit.\n")
+    if preYears != 0:
+        preDate = int(date[0].timestamp()/86400)  + (preYears * 365)
+        prePrice = (preDate * bfSlope) + bfIntercept
+        print(f"\nIn {preYears} years, the average price should be: ${prePrice:.2f}!")
+        print("NOTE: This number is the average of the median, min, and max prices.")
+        if input("\nEnter 1 to predict again or anything else to exit: ") == "1":
+            predictive()
+        else:
+            print("\nGoodbye!")
+
 # Fill in all null values
 col0 = col0.fillna("")
 
@@ -177,3 +194,5 @@ plt.savefig("Combined.png")
 scatterPlot(median, "Medians")
 scatterPlot(min, "Min")
 scatterPlot(max, "Max")
+
+predictive()
